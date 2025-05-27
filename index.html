@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Opposites Attract</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      font-family: 'Segoe UI';
+    }
+
+    .container {
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+      transition: all 0.5s ease;
+      position: relative;
+    }
+
+    .side {
+      position: relative;
+      flex: 1;
+      padding: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      transition: all 0.5s ease;
+    }
+
+    #navWrapper {
+      position: absolute;
+      width: 600px;
+      height: 10vh;
+      background-color: #c9c8c8; 
+      z-index: 100;
+    }
+
+    #navButtons {
+      position: absolute;
+      top: 50px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      z-index: 200;
+    }
+
+    #navButtons button {
+      background: none;
+      border: none;
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: #000605;
+      cursor: pointer;
+      position: relative;
+    }
+
+    #navButtons button::after {
+      content: "";
+      display: flex;
+      height: 2px;
+      width: 0%;
+      background: currentColor;
+      transition: width 0.3s ease;
+      margin: 4px auto 0 auto;
+    }
+
+    #navButtons button:hover::after {
+      width: 100%;
+    }
+
+
+    p {
+      font-size: 1.2rem;
+      max-width: 480px;
+      line-height: 1.6;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius:0;
+      margin-top: 0;
+    }
+
+    .about-day { background: #fcfcf8; color: #0f0e0e; }
+    .about-night { background: #001f3f; color: #fefefe; }
+    .hobbies-day { background: #fcfbfb; color: #000605; }
+    .hobbies-night { background: #020004; color: #f9fafb; }
+
+    .accordion {
+      width: 160%;
+      padding: 5 40px;
+      margin: 0;
+      box-sizing: border-box;
+      text-align: left;
+      align-self: flex-start;
+    }
+
+    .accordion .item {
+      margin-bottom: 20px;
+    }
+
+    .accordion button {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ffffff10;
+      border: none;
+      padding: 15px 16px;
+      font-size: 1.7rem;
+      text-align: left;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .accordion .arrow {
+      margin-left: 20px;
+      font-size: 1.2rem;
+      transition: transform 0.3s;
+    }
+
+    .accordion button.active .arrow {
+      transform: rotate(180deg);
+    }
+
+    .panel {
+      display: none;
+      padding: 1px 16px;
+      font-size: 1.3rem;
+      line-height: 1.8;
+      background-color: #ffffff20;
+    }
+
+    .about-background {
+      background-image: url("images/423529.jpg");
+      background-position: center;
+    }
+
+    .fullscreen::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("images/475526.jpg");
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+      opacity: 1
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="container">
+    <div id="navWrapper">
+      <div id="navButtons">
+        <button onclick="show('about')"><span>About Me</span></button>
+        <button onclick="show('hobbies')"><span>Hobbies</span></button>
+        <button onclick="show('socials')"><span>Socials</span></button>
+      </div>
+    </div>
+
+    <div class="side about-left" id="leftSide">
+      <p id="leftContent"></p>
+      <img id="leftImg" src="" alt="">
+    </div>
+
+    <div class="side about-right" id="rightSide">
+      <p id="rightContent"></p>
+      <img id="rightImg" src="" alt="">
+    </div>
+  </div>
+
+  <script>
+    const content = {
+      about: {
+        left: {
+          text: `
+            <div class="accordion">
+              <div class="item">
+                <button onclick="toggleItem(this)">
+                  <span>Introduction</span><span class="arrow">▼</span>
+                </button>
+                <div class="panel">
+                  Hi there, my name is Bryan Stanley Rijanto and I am 22 years old. A fun fact about me is that this is my first
+                  time learning HTML and CSS! My favourite language is Python.
+                </div>
+              </div>
+              <div class="item">
+                <button onclick="toggleItem(this)">
+                  <span>Country</span><span class="arrow">▼</span>
+                </button>
+                <div class="panel">
+                  Born in Indonesia. Moved to Malaysia when I was young, then to Singapore, and now I'm here 
+                  studying Computer Science in UNSW.
+                </div>
+              </div>
+              <div class="item">
+                <button onclick="toggleItem(this)">
+                  <span>Degree</span><span class="arrow">▼</span>
+                </button>
+                <div class="panel">
+                  2nd year Computer Science. Planning to major in Cybersecurity.
+                </div>
+              </div>
+              <div class="item">
+                <button onclick="toggleItem(this)">
+                  <span>Experience</span><span class="arrow">▼</span>
+                </button>
+                <div class="panel">
+                  MATH -> 1131, 1231, 1081 <br>
+                  COMP -> 1511, 1521, 2521, 1531, 2511, 3311, 3331, 3411 <br>
+                  ELECTIVES -> COMM 1140, INFS 2602
+                </div>
+              </div>
+            </div>`,
+          class: "about-left"
+        },
+        right: {
+          text: "",
+          img: "",
+          class: "about-right about-background"
+        }
+      },
+      hobbies: {
+        left: { text: "", img: "", class: "hobbies-day"},
+        right: { text: "", img: "", class: "hobbies-night"}
+      },
+      socials: {
+        left: { text: "", img: "", class: "" },
+        right: { text: "", img: "", class: "" }
+      }
+    };
+
+    function show(section) {
+      const container = document.getElementById("container");
+      const leftSide = document.getElementById("leftSide");
+      const rightSide = document.getElementById("rightSide");
+
+      container.classList.remove("fullscreen");
+
+      if (section === "socials") {
+        container.classList.add("fullscreen");
+
+        leftSide.className = "side";
+        rightSide.className = "side";
+
+        document.getElementById("leftContent").innerHTML = `
+          <div style="position: relative; width: 300px; height: 300px;">
+          <a href="https://www.facebook.com/bryan.rijanto/" target="_blank" style="position: absolute; top: -80px; left: 100px;">
+          <img src="images/fb.jpg" style="width: 150px; height: 150px;" alt="Facebook">
+          </a>
+          <a href="https://www.linkedin.com/in/bryan-rijanto-38aa73219/" target="_blank" style="position: absolute; top: 190px; left: 400px;">
+          <img src="images/inkedin.webp" style="width: 150px; height: 150px;" alt="LinkedIn">
+          </a>
+          </div>
+        `;
+
+        document.getElementById("rightContent").innerHTML = `
+          <div style="position: relative; width: 300px; height: 300px;">
+          <a href="https://www.instagram.com/bryan_stan/" target="_blank" style="position: absolute; top: -80px; left: 500px;">
+          <img src="images/insta.png" style="width: 170px; height: 170px;" alt="Instagram">
+          </a>
+          <a href="mailto:bryanrij@gmail.com" style="position: absolute; top: 190px; left: 200px;">
+          <img src="images/gmail.png" style="width: 150px; height: 150px;" alt="Gmail">
+          </a>
+          </div>
+        `;
+
+        document.getElementById("leftImg").style.display = "none";
+        document.getElementById("rightImg").style.display = "none";
+        return;
+      }
+
+      if (section === "hobbies") {
+        container.classList.remove("fullscreen");
+
+        leftSide.className = "side hobbies-day";
+        rightSide.className = "side hobbies-night";
+
+        document.getElementById("leftImg").style.display = "none";
+        document.getElementById("rightImg").style.display = "none";
+
+        document.getElementById("leftContent").innerHTML = `
+          <div style="position: relative; width: 100%; height: 100%;">
+          <img src="images/bball.gif" style="position: absolute; top: -280px; left: 30px; width: 230px; height: 230px;" />
+          <img src="images/badmin.gif" style="position: absolute; top: -100px; left: 450px; width: 230px; height: 230px;" />
+          <img src="images/sashimi.jpg" style="position: absolute; top: 50px; left: 100px; width: 230px; height: 230px;" />
+          <div style="position: absolute; top: 320px; right: -800px; font-size: 5rem; font-weight: bold;">DAY</div>
+          </div>
+        `;
+
+        document.getElementById("rightContent").innerHTML = `
+          <div style="position: relative; width: 100%; height: 100%;">
+          <img src="images/sleep.gif" style="position: absolute; top: 140px; left: 470px; width: 270px; height: 270px;" />
+          <img src="images/netflix.png" style="position: absolute; top: -150px; left: 400px; width: 300px; height: 160px;" />
+          <img src="images/steak.png" style="position: absolute; top: -100px; left: 10px; width: 230px; height: 230px;" />
+          <img src="images/lofi.png" style="position: absolute; bottom: 200px; left: 50px; width: 350px; height: 200px;" />
+          <div style="position: absolute; top: 320px; right: -220px; font-size: 5rem; font-weight: bold;">NIGHT</div>
+          </div>
+        `;
+
+        return;
+      }
+
+      const left = content[section].left;
+      const right = content[section].right;
+
+      leftSide.className = "side " + left.class;
+      rightSide.className = "side " + right.class;
+
+      document.getElementById("leftContent").innerHTML = left.text || "";
+      document.getElementById("leftImg").src = left.img || "";
+      document.getElementById("leftImg").style.display = left.img ? "block" : "none";
+
+      document.getElementById("rightContent").innerHTML = right.text || "";
+      document.getElementById("rightImg").src = right.img || "";
+      document.getElementById("rightImg").style.display = right.img ? "block" : "none";
+  }
+
+
+    function toggleItem(btn) {
+      btn.classList.toggle("active");
+      const panel = btn.nextElementSibling;
+      panel.style.display = panel.style.display === "block" ? "none" : "block";
+    }
+
+    show('about');
+  </script>
+
+</body>
+</html>
