@@ -138,7 +138,7 @@
     }
 
     .about-background {
-      background-image: url("423529.jpg");
+      background-image: url("images/423529.jpg");
       background-position: center;
     }
 
@@ -244,8 +244,6 @@
       const leftSide = document.getElementById("leftSide");
       const rightSide = document.getElementById("rightSide");
 
-      container.classList.remove("fullscreen");
-
       if (section === "socials") {
         container.classList.add("fullscreen");
 
@@ -274,8 +272,6 @@
           </div>
         `;
 
-        document.getElementById("leftImg").style.display = "none";
-        document.getElementById("rightImg").style.display = "none";
         return;
       }
 
@@ -284,10 +280,7 @@
 
         leftSide.className = "side hobbies-day";
         rightSide.className = "side hobbies-night";
-
-        document.getElementById("leftImg").style.display = "none";
-        document.getElementById("rightImg").style.display = "none";
-
+        
         document.getElementById("leftContent").innerHTML = `
           <div style="position: relative; width: 100%; height: 100%;">
           <img src="images/bball.gif" style="position: absolute; top: -280px; left: 30px; width: 230px; height: 230px;" />
