@@ -22,25 +22,26 @@
     .side {
       position: relative;
       flex: 1;
-      padding: 80px;
+      padding: 5vw;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: flex-start;
+      align-items: center;
       transition: all 0.5s ease;
+      box-sizing: border-box;
     }
 
     #navWrapper {
       position: absolute;
-      width: 600px;
+      width: 100%;
       height: 10vh;
-      background-color: #c9c8c8; 
+      background-color: #c9c8c8;
       z-index: 100;
     }
 
     #navButtons {
       position: absolute;
-      top: 50px;
+      top: 30px;
       width: 100%;
       display: flex;
       justify-content: center;
@@ -72,18 +73,16 @@
       width: 100%;
     }
 
-
     p {
       font-size: 1.2rem;
-      max-width: 480px;
       line-height: 1.6;
     }
 
     img {
-      width: 100%;
-      height: 100%;
+      max-width: 100%;
+      height: auto;
       object-fit: cover;
-      border-radius:0;
+      border-radius: 0;
       margin-top: 0;
     }
 
@@ -93,16 +92,16 @@
     .hobbies-night { background: #020004; color: #f9fafb; }
 
     .accordion {
-      width: 160%;
-      padding: 5 40px;
-      margin: 0;
+      width: 110%;
+      margin-left: -3vw;
+      padding: 0px 2vw;
       box-sizing: border-box;
       text-align: left;
-      align-self: flex-start;
+      align-self: stretch;
     }
 
     .accordion .item {
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
 
     .accordion button {
@@ -112,8 +111,8 @@
       align-items: center;
       background-color: #ffffff10;
       border: none;
-      padding: 15px 16px;
-      font-size: 1.7rem;
+      padding: 10px 0px 10px 0px;
+      font-size: 1.4rem;
       text-align: left;
       cursor: pointer;
       font-weight: bold;
@@ -130,16 +129,19 @@
     }
 
     .panel {
+      width: 100%;
       display: none;
-      padding: 1px 16px;
-      font-size: 1.3rem;
-      line-height: 1.8;
+      padding: 2px 2px 20px 2px;
+      font-size: 1.1rem;
+      line-height: 1.6;
       background-color: #ffffff20;
+      margin-top: 5px;
     }
 
     .about-background {
       background-image: url("images/423529.jpg");
       background-position: center;
+      background-size: cover;
     }
 
     .fullscreen::before {
@@ -153,7 +155,29 @@
       background-size: cover;
       background-position: center;
       z-index: -1;
-      opacity: 1
+      opacity: 1;
+    }
+
+    .image-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .image-grid img {
+      flex: 1 1 30%;
+      max-width: 200px;
+      height: auto;
+    }
+
+    .large-label {
+      font-size: 4vw;
+      font-weight: bold;
+      text-align: center;
+      width: 100%;
     }
   </style>
 </head>
@@ -198,8 +222,8 @@
                   <span>Country</span><span class="arrow">▼</span>
                 </button>
                 <div class="panel">
-                  Born in Indonesia. Moved to Malaysia when I was young, then to Singapore, and now I'm here 
-                  studying Computer Science in UNSW.
+                  Born in Indonesia. Moved to Malaysia when I was young,
+                  then to Singapore, and now I'm here studying Computer Science in UNSW.
                 </div>
               </div>
               <div class="item">
@@ -230,12 +254,57 @@
         }
       },
       hobbies: {
-        left: { text: "", img: "", class: "hobbies-day"},
-        right: { text: "", img: "", class: "hobbies-night"}
+        left: {
+          text: `
+            <div class="image-grid">
+              <img src="images/bball.gif" alt="Basketball" />
+              <img src="images/badmin.gif" alt="Badminton" />
+              <img src="images/sashimi.jpg" alt="Sashimi" />
+              <div class="large-label">DAY</div>
+            </div>`,
+          img: "",
+          class: "hobbies-day"
+        },
+        right: {
+          text: `
+            <div class="image-grid">
+              <img src="images/sleep.gif" alt="Sleep" />
+              <img src="images/netflix.png" alt="Netflix" />
+              <img src="images/steak.png" alt="Steak" />
+              <img src="images/lofi.png" alt="Lofi" />
+              <div class="large-label">NIGHT</div>
+            </div>`,
+          img: "",
+          class: "hobbies-night"
+        }
       },
       socials: {
-        left: { text: "", img: "", class: "" },
-        right: { text: "", img: "", class: "" }
+        left: {
+          text: `
+            <div class="image-grid">
+              <a href="https://www.facebook.com/bryan.rijanto/" target="_blank">
+                <img src="images/fb.jpg" alt="Facebook">
+              </a>
+              <a href="https://www.linkedin.com/in/bryan-rijanto-38aa73219/" target="_blank">
+                <img src="images/inkedin.webp" alt="LinkedIn">
+              </a>
+            </div>`,
+          img: "",
+          class: ""
+        },
+        right: {
+          text: `
+            <div class="image-grid">
+              <a href="https://www.instagram.com/bryan_stan/" target="_blank">
+                <img src="images/insta.png" alt="Instagram">
+              </a>
+              <a href="mailto:bryanrij@gmail.com">
+                <img src="images/gmail.png" alt="Gmail">
+              </a>
+            </div>`,
+          img: "",
+          class: ""
+        }
       }
     };
 
@@ -244,63 +313,12 @@
       const leftSide = document.getElementById("leftSide");
       const rightSide = document.getElementById("rightSide");
 
-      if (section === "socials") {
-        container.classList.add("fullscreen");
-
-        leftSide.className = "side";
-        rightSide.className = "side";
-
-        document.getElementById("leftContent").innerHTML = `
-          <div style="position: relative; width: 300px; height: 300px;">
-          <a href="https://www.facebook.com/bryan.rijanto/" target="_blank" style="position: absolute; top: -80px; left: 100px;">
-          <img src="images/fb.jpg" style="width: 150px; height: 150px;" alt="Facebook">
-          </a>
-          <a href="https://www.linkedin.com/in/bryan-rijanto-38aa73219/" target="_blank" style="position: absolute; top: 190px; left: 400px;">
-          <img src="images/inkedin.webp" style="width: 150px; height: 150px;" alt="LinkedIn">
-          </a>
-          </div>
-        `;
-
-        document.getElementById("rightContent").innerHTML = `
-          <div style="position: relative; width: 300px; height: 300px;">
-          <a href="https://www.instagram.com/bryan_stan/" target="_blank" style="position: absolute; top: -80px; left: 500px;">
-          <img src="images/insta.png" style="width: 170px; height: 170px;" alt="Instagram">
-          </a>
-          <a href="mailto:bryanrij@gmail.com" style="position: absolute; top: 190px; left: 200px;">
-          <img src="images/gmail.png" style="width: 150px; height: 150px;" alt="Gmail">
-          </a>
-          </div>
-        `;
-
-        return;
+      if (section !== "socials") {
+        container.classList.remove("fullscreen");
       }
 
-      if (section === "hobbies") {
-        container.classList.remove("fullscreen");
-
-        leftSide.className = "side hobbies-day";
-        rightSide.className = "side hobbies-night";
-        
-        document.getElementById("leftContent").innerHTML = `
-          <div style="position: relative; width: 100%; height: 100%;">
-          <img src="images/bball.gif" style="position: absolute; top: -280px; left: 30px; width: 230px; height: 230px;" />
-          <img src="images/badmin.gif" style="position: absolute; top: -100px; left: 450px; width: 230px; height: 230px;" />
-          <img src="images/sashimi.jpg" style="position: absolute; top: 50px; left: 100px; width: 230px; height: 230px;" />
-          <div style="position: absolute; top: 320px; right: -800px; font-size: 5rem; font-weight: bold;">DAY</div>
-          </div>
-        `;
-
-        document.getElementById("rightContent").innerHTML = `
-          <div style="position: relative; width: 100%; height: 100%;">
-          <img src="images/sleep.gif" style="position: absolute; top: 140px; left: 470px; width: 270px; height: 270px;" />
-          <img src="images/netflix.png" style="position: absolute; top: -150px; left: 400px; width: 300px; height: 160px;" />
-          <img src="images/steak.png" style="position: absolute; top: -100px; left: 10px; width: 230px; height: 230px;" />
-          <img src="images/lofi.png" style="position: absolute; bottom: 200px; left: 50px; width: 350px; height: 200px;" />
-          <div style="position: absolute; top: 320px; right: -220px; font-size: 5rem; font-weight: bold;">NIGHT</div>
-          </div>
-        `;
-
-        return;
+      if (section === "socials") {
+        container.classList.add("fullscreen");
       }
 
       const left = content[section].left;
@@ -316,8 +334,7 @@
       document.getElementById("rightContent").innerHTML = right.text || "";
       document.getElementById("rightImg").src = right.img || "";
       document.getElementById("rightImg").style.display = right.img ? "block" : "none";
-  }
-
+    }
 
     function toggleItem(btn) {
       btn.classList.toggle("active");
@@ -327,6 +344,5 @@
 
     show('about');
   </script>
-
 </body>
 </html>
